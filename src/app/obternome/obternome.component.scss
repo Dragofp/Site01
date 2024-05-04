@@ -1,0 +1,24 @@
+ul {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  width: 40%; /* Ajuste este valor conforme necessário */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+li {
+  display: flex;
+  justify-content: center; /* Alinha o conteúdo no centro */
+  align-items: center;
+  border: 1px solid #000;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #f1f1f1;
+}
+
+li:nth-child(even) {
+  background-color: #ddd;
+}
