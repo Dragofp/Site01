@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
+import {CommonModule} from "@angular/common";
+
 
 @Component({
   selector: 'app-diasdasemana',
@@ -7,11 +9,13 @@ import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
   imports: [
     RouterLink,
     RouterLinkActive,
-    RouterOutlet
+    RouterOutlet,CommonModule,
   ],
+  providers:[],
   templateUrl: './diasdasemana.component.html',
   styleUrl: './diasdasemana.component.scss'
 })
 export class DiasdasemanaComponent {
 
 }
+

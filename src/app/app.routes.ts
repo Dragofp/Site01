@@ -1,18 +1,18 @@
 import { Routes } from '@angular/router';
-
-import {ObternomeComponent} from "./obternome/obternome.component";
 import {DiasdasemanaComponent} from "./diasemana/diasdasemana/diasdasemana.component";
 import {SegundafeiraComponent} from "./diasemana/segundafeira/segundafeira.component";
+import {TelaloginComponent} from "./telalogin/telalogin.component";
+
 
 export const routes: Routes = [
   {
-    path: "obtenhanomes",
-    component:ObternomeComponent
+    path: "",
+    component:TelaloginComponent,
   },
   {
-    path: "",
-    component:DiasdasemanaComponent
+    path: 'diasdasemana', component: DiasdasemanaComponent
   },
   {path: "segunda-feira",
-  component:SegundafeiraComponent},
+  component:SegundafeiraComponent
+    ,},
 ];

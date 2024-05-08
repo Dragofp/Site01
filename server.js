@@ -1,9 +1,11 @@
 const mysql = require('mysql2/promise');
 const express = require('express');
 const cors = require('cors');
+const bcrypt = require('bcrypt');
 const app = express();
 app.use(cors());
 app.use(express.json());
+const jwt = require('jsonwebtoken');
 const pool = mysql.createPool({
   host: 'localhost',
   user: 'root',
@@ -12,31 +14,67 @@ const pool = mysql.createPool({
   connectionLimit: 10,
   queueLimit: 0
 });
-app.use(cors({
-  origin: 'http://localhost:4200' // Permitir apenas este domínio
-}));
+app.use(cors());
 
+app.post('/registrar', async (req, res) => {
+  let { nome, senha, profissional } = req.body;
+  if (nome.length <= 3 || senha.length <= 3) {
+    return res.status(400).json({ error: 'Nome e senha precisam ter mais de 4 caracteres' });
+  }
+  const salt = await bcrypt.genSalt(10);
+  const hashedSenha = await bcrypt.hash(senha, salt);
 
-app.get('/api/lerinfo', async (req, res) => {
-  const sql = 'SELECT nome, idade FROM tabela';
-  const [info] = await pool.query(sql);
-  res.send(info);
-});
-
-
-app.post('/api/inserir-nome', (req, res) => {
-  const nome = req.body.nome;
-  pool.query('INSERT INTO tabela (nome) VALUES (?)', [nome], (error, results) => {
-    if (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Algo deu errado ao inserir o nome' });
-    } else {
-      res.status(201).json({ message: `Nome adicionado com ID: ${results.insertId}` });
+  try {
+    const [coluna] = await pool.query('SELECT * FROM tabela WHERE nome = ?', [nome]);
+    if (coluna.length > 0) {
+      return res.status(400).json({ error: 'Nome já registrado' });
     }
-  })
-  res.json({ message: 'mensagem' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao buscar no banco de dados' });
+  }
+
+  try {
+    const [coluna] = await pool.query('INSERT INTO tabela (nome, senha, profissional) VALUES (?, ?, ?)', [nome, hashedSenha, profissional]);
+    res.json({ id: coluna.insertId });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao inserir no banco de dados' });
+  }
 });
+
+
+app.post('/login', async (req, res) => {
+  let { nome, senha } = req.body;
+
+  try {
+    const [coluna] = await pool.query('SELECT * FROM tabela WHERE nome = ?', [nome]);
+    if (coluna.length === 0) {
+      return res.status(400).json({ error: 'Usuário não encontrado' });
+    }
+
+    const usuario = coluna[0];
+
+    const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
+    if (!senhaCorreta) {
+      return res.status(400).json({ error: 'Senha incorreta' });
+    }
+
+    res.json({ id: usuario.id, nome: usuario.nome});
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao fazer login' });
+  }
+
+});
+
+
+
 
 app.listen(3000, () => {
-  console.log('Server started on port 3000');
+  console.log('Aplicativo está ouvindo na porta 3000!');
 });
+
+
+
