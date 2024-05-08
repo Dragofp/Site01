@@ -49,6 +49,6 @@ export class TelaloginComponent {
     )}
 
 
-};
+}
 
 
