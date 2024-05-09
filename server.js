@@ -25,7 +25,7 @@ app.post('/registrar', async (req, res) => {
   const hashedSenha = await bcrypt.hash(senha, salt);
 
   try {
-    const [coluna] = await pool.query('SELECT * FROM tabela WHERE nome = ?', [nome]);
+    const [coluna] = await pool.query('SELECT * FROM usuarios WHERE nome = ?', [nome]);
     if (coluna.length > 0) {
       return res.status(400).json({ error: 'Nome já registrado' });
     }
@@ -35,7 +35,7 @@ app.post('/registrar', async (req, res) => {
   }
 
   try {
-    const [coluna] = await pool.query('INSERT INTO tabela (nome, senha, profissional) VALUES (?, ?, ?)', [nome, hashedSenha, profissional]);
+    const [coluna] = await pool.query('INSERT INTO usuarios (nome, senha, profissional) VALUES (?, ?, ?)', [nome, hashedSenha, profissional]);
     res.json({ id: coluna.insertId });
   } catch (err) {
     console.error(err);
@@ -48,7 +48,7 @@ app.post('/login', async (req, res) => {
   let { nome, senha } = req.body;
 
   try {
-    const [coluna] = await pool.query('SELECT * FROM tabela WHERE nome = ?', [nome]);
+    const [coluna] = await pool.query('SELECT * FROM usuarios WHERE nome = ?', [nome]);
     if (coluna.length === 0) {
       return res.status(400).json({ error: 'Usuário não encontrado' });
     }
@@ -69,7 +69,31 @@ app.post('/login', async (req, res) => {
 
 });
 
+app.post('/addhora', async (req, res) => {
+  let { pessoa, dia, horario } = req.body;
 
+  try {
+    const [rows] = await pool.execute(
+      'INSERT INTO horarios (Pessoa, Dia, Horario) VALUES (?, ?, ?)',
+      [pessoa, dia, horario]
+    );
+
+    res.json({ success: true, message: 'Horário adicionado com sucesso!' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Erro ao adicionar horário' });
+  }
+});
+
+app.get('/horarios', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM horarios');
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao recuperar horários do banco de dados' });
+  }
+});
 
 
 app.listen(3000, () => {

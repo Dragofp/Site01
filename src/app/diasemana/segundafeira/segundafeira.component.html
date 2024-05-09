@@ -1,2 +1,28 @@
-<h1>Seja bem vindo a segunda</h1>
+<h1>Adicionar Horário</h1>
 
+<form (ngSubmit)="InserirHora()">
+  <div>
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" [(ngModel)]="nome" name="nome" required>
+  </div>
+
+  <div>
+    <label for="dia">Dia:</label>
+    <input type="text" id="dia" [(ngModel)]="dia" name="dia" required>
+  </div>
+
+  <div>
+    <label for="horario">Horário:</label>
+    <input type="text" id="horario" [(ngModel)]="horario" name="horario" required>
+  </div>
+
+  <button type="submit">Adicionar Horário</button>
+</form>
+
+<h1>Horários</h1>
+<ul *ngFor="let item of horas">
+  <li>
+    <p>{{ item.Pessoa }}, Dia: {{ item.Dia | date:'dd/MM' }}, Horário: {{ item.Horario }}</p>
+  </li>
+</ul>
+<router-outlet></router-outlet>
