@@ -27,14 +27,25 @@ export class SegundafeiraComponent implements OnInit {
 
   constructor(private httpClient: HttpClient) {
   }
+  selecionarHorario(horario: number) {
+    this.horario = horario.toString();
+  }
 
   ngOnInit(): void {
     this.ObterHora();
     this.ObterHorariosDisponiveis();
     this.ObterUser();
+    this.ObterDataAtual();
     console.log(this.usuarioLogado);
   }
+  ObterDataAtual() {
+    let dataAtual = new Date();
+    let dia = ("0" + dataAtual.getDate()).slice(-2);
+    let mes = ("0" + (dataAtual.getMonth() + 1)).slice(-2);
+    let ano = dataAtual.getFullYear();
 
+    this.dia = `${ano}-${mes}-${dia}`;
+  }
   ObterHora() {
     this.httpClient.get<Horario[]>('http://localhost:3000/horarios').subscribe((nomes) => {
       this.horas = nomes.map(hora => ({...hora, Horario: parseInt(hora.Horario)}));

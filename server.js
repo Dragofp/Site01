@@ -43,7 +43,6 @@ app.post('/registrar', async (req, res) => {
   }
 });
 
-
 let usuarioLogado = null; // Variável para armazenar o usuário logado
 
 app.post('/login', async (req, res) => {

@@ -1,4 +1,11 @@
-<h1>Adicionar Horário</h1>
+<h1>Horários Disponíveis</h1>
+<div style="display: flex; justify-content: space-around;">
+  <p class="ik" (click)="selecionarHorario(13)">13</p>
+  <p class="ik" (click)="selecionarHorario(14)">14</p>
+  <p class="ik" (click)="selecionarHorario(15)">15</p>
+  <p class="ik" (click)="selecionarHorario(16)">16</p>
+  <p class="ik" (click)="selecionarHorario(17)">17</p>
+</div>
 
 <form (ngSubmit)="InserirHora()">
   <div>
@@ -24,12 +31,5 @@
 <ul *ngFor="let item of horas">
   <li>
     <p>{{ item.Pessoa }}, Dia: {{ item.Dia | date:'dd/MM' }}, Horário: {{ item.Horario | number:'2.0-0' }}</p>
-  </li>
-</ul>
-
-<h1>Horários Disponíveis</h1>
-<ul *ngFor="let horario of horariosDisponiveis">
-  <li>
-    <p>Horário: {{ horario | number:'2.0-0' }}</p>
   </li>
 </ul>
