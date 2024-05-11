@@ -16,15 +16,18 @@ import {SistemaLogin} from "../../services/autenticacao.service";
   styleUrl: './telalogin.component.scss'
 })
 export class TelaloginComponent {
-  nome: string = '';
-  senha: string = '';
+  nomeRegistro: string = '';
+  senhaRegistro: string = '';
   profissional: number = 0;
+
+  nomeLogin: string = '';
+  senhaLogin: string = '';
 
   constructor(private authService: SistemaLogin, private router: Router) { }
 
 
   registrarUsuario() {
-    this.authService.registrar(this.nome, this.senha, this.profissional).subscribe(
+    this.authService.registrar(this.nomeRegistro, this.senhaRegistro, this.profissional).subscribe(
       response => {
         console.log(response);
         alert('Registrado com sucesso!');
@@ -36,7 +39,7 @@ export class TelaloginComponent {
     )};
 
   loginUsuario() {
-    this.authService.login(this.nome, this.senha).subscribe(
+    this.authService.login(this.nomeLogin, this.senhaLogin).subscribe(
       response => {
         console.log(response);
         alert('Login com sucesso!');

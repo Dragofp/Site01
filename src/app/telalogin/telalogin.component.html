@@ -6,12 +6,12 @@
         <form (ngSubmit)="registrarUsuario()" class="mb-4" id="register-form">
           <div class="form-group" id="name-group">
             <label for="nome">Nome:</label>
-            <input type="text" id="nome" [(ngModel)]="nome" name="nome" class="form-control">
+            <input type="text" id="nome" [(ngModel)]="nomeRegistro" name="nome" class="form-control">
           </div>
 
           <div class="form-group" id="password-group">
             <label for="senha">Senha:</label>
-            <input type="password" id="senha" [(ngModel)]="senha" name="senha" class="form-control">
+            <input type="password" id="senha" [(ngModel)]="senhaRegistro" name="senha" class="form-control">
           </div>
 
           <div class="form-group" id="professional-group">
@@ -26,12 +26,12 @@
         <form (ngSubmit)="loginUsuario()" id="login-form">
           <div class="form-group" id="login-name-group">
             <label for="nome">Nome:</label>
-            <input type="text" id="anome" [(ngModel)]="nome" name="nome" class="form-control">
+            <input type="text" id="anome" [(ngModel)]="nomeLogin" name="nome" class="form-control">
           </div>
 
           <div class="form-group" id="login-password-group">
             <label for="senha">Senha:</label>
-            <input type="password" id="asenha" [(ngModel)]="senha" name="senha" class="form-control">
+            <input type="password" id="asenha" [(ngModel)]="senhaLogin" name="senha" class="form-control">
           </div>
 
           <button type="submit" class="btn btn-primary w-100" id="login-button">Entrar</button>
