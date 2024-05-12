@@ -1,0 +1,40 @@
+<h1>Horários Disponíveis</h1>
+<div style="display: flex; justify-content: space-around;">
+  <p class="ik" (click)="selecionarHorario(13)">13</p>
+  <p class="ik" (click)="selecionarHorario(14)">14</p>
+  <p class="ik" (click)="selecionarHorario(15)">15</p>
+  <p class="ik" (click)="selecionarHorario(16)">16</p>
+  <p class="ik" (click)="selecionarHorario(17)">17</p>
+</div>
+
+<form (ngSubmit)="RemoverHora()">
+  <div>
+    <label for="dia">Dia:</label>
+    <input type="date" id="dia" [(ngModel)]="dia" name="dia" required>
+  </div>
+
+  <div>
+    <label for="horario">Horário:</label>
+    <select id="horario" [(ngModel)]="horario" name="horario" required>
+      <option [value]="13">13:00</option>
+      <option [value]="14">14:00</option>
+      <option [value]="15">15:00</option>
+      <option [value]="16">16:00</option>
+      <option [value]="17">17:00</option>
+    </select>
+  </div>
+
+  <button type="submit">Remover Horário</button>
+</form>
+<h1 class="text-primary mb-2 text-center">Horários</h1>
+<div class="text-light bg-primary p-1 rounded shadow-sm text-center flex-fill ik"
+     *ngFor="let hora of horas"
+     [class.highlight]="selectedHora === hora"
+     (mouseover)="selectedHora = hora"
+     (mouseout)="selectedHora = null"
+     (click)="RemoverHora(hora)">
+  <p class="m-0 text-center" style="font-size: 0.8em;">{{ hora.Pessoa }}, Dia: {{ hora.Dia | date:'dd/MM' }}, Horário: {{ hora.Horario | number:'2.0-0' }}</p>
+</div>
+
+
+<router-outlet></router-outlet>
