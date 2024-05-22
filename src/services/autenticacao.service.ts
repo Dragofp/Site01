@@ -15,6 +15,4 @@ export class SistemaLogin {
   login(nome: string, senha: string) {
     return this.http.post('http://localhost:3000/login', { nome, senha });
   }
-
-
 }

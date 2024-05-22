@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
-import {DiasdasemanaComponent} from "./diasemana/diasdasemana/diasdasemana.component";
-import {SegundafeiraComponent} from "./diasemana/segundafeira/segundafeira.component";
-import {TelaloginComponent} from "./telalogin/telalogin.component";
+import {InicioComponent} from "./diasemana/menuparamudarpagina/inicio.component";
+import {DiasComponent} from "./diasemana/telaparainserirhorario/dias.component";
+import {TelaloginComponent} from "./diasemana/telalogin/telalogin.component";
+import {GerenciamentoComponent} from "./diasemana/telapararemoverhorario/gerenciamento.component";
 
 
 export const routes: Routes = [
@@ -10,9 +11,11 @@ export const routes: Routes = [
     component:TelaloginComponent,
   },
   {
-    path: 'diasdasemana', component: DiasdasemanaComponent
+    path: 'menuparamudarpagina', component: InicioComponent
   },
-  {path: "segunda-feira",
-  component:SegundafeiraComponent
+  {path: "telaparainserirhorario",
+  component:DiasComponent
     ,},
+  {path:"telapararemoverhorario",
+  component:GerenciamentoComponent},
 ];
