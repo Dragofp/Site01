@@ -1,0 +1,17 @@
+html {
+  background-image: url(assets/bkg/bkg-up.jpeg);
+  display: table;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* alinha horizontalmente */
+  align-items: center; /* alinha verticalmente */
+  min-height: 100vh; /* usa pelo menos a altura total da viewport */
+}

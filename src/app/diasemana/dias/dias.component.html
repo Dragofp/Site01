@@ -1,0 +1,31 @@
+<div class="container">
+  <h1>Horários</h1>
+  <div class="seleção">
+    <div class="horarios">
+      <p class="ik" (click)="selecionarHorario(13)">13</p>
+      <p class="ik" (click)="selecionarHorario(14)">14</p>
+      <p class="ik" (click)="selecionarHorario(15)">15</p>
+      <p class="ik" (click)="selecionarHorario(16)">16</p>
+      <p class="ik" (click)="selecionarHorario(17)">17</p>
+    </div>
+    <form (ngSubmit)="InserirHora()">
+      <label for="dia"></label>
+      <input type="date" id="dia" [(ngModel)]="dia" name="dia" required>
+      <label for="horario"></label>
+      <select id="horario" [(ngModel)]="horario" name="horario" required>
+        <option [value]="13">13:00</option>
+        <option [value]="14">14:00</option>
+        <option [value]="15">15:00</option>
+        <option [value]="16">16:00</option>
+        <option [value]="17">17:00</option>
+      </select>
+      <button type="submit">+</button>
+    </form>
+  </div>
+  <h1>Agendados</h1>
+  <div class="lista">
+    <ul *ngFor="let item of horas">
+      {{ item.Pessoa }} - {{ item.Dia | date:'dd/MM' }} às {{ item.Horario | number:'2.0-0' }}h
+    </ul>
+  </div>
+</div>
